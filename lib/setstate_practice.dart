@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-// 화이팅
 void main() {
   runApp(const MyApp());
 }
@@ -17,19 +16,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CounterApp(),
+      home: const PastLife(),
     );
   }
 }
 
-class CounterApp extends StatefulWidget {
-  const CounterApp({Key? key}) : super(key: key);
+class PastLife extends StatefulWidget {
+  const PastLife({Key? key}) : super(key: key);
 
   @override
-  State<CounterApp> createState() => _CounterAppState();
+  State<PastLife> createState() => _PastLifeState();
 }
 
-class _CounterAppState extends State<CounterApp> {
+class _PastLifeState extends State<PastLife> {
   int randomNumber = 0;
   bool isLoading = false;
   List<String> myList = ["홍길동", "이순신", "정조", "장영실", "노비", "김삿갓"];
@@ -48,7 +47,7 @@ class _CounterAppState extends State<CounterApp> {
             "당신의 전생은?",
             style: TextStyle(fontSize: 20),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: increase,
             child: const Text(
@@ -56,6 +55,7 @@ class _CounterAppState extends State<CounterApp> {
               style: TextStyle(fontSize: 20),
             ),
           ),
+          const SizedBox(height: 20),
           Center(
             child: _buildText(),
           ),
@@ -71,7 +71,7 @@ class _CounterAppState extends State<CounterApp> {
 
     return Text(
       myList[randomNumber],
-      style: const TextStyle(fontSize: 80),
+      style: const TextStyle(fontSize: 50),
     );
   }
 
@@ -79,12 +79,11 @@ class _CounterAppState extends State<CounterApp> {
     setState(() {
       isLoading = true;
     });
-    print('click');
 
     await Future.delayed(const Duration(seconds: 3));
 
     setState(() {
-      randomNumber = Random().nextInt(6);
+      randomNumber = Random().nextInt(myList.length);
       isLoading = false;
     });
   }
