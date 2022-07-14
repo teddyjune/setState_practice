@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 // 화이팅
@@ -28,7 +30,7 @@ class CounterApp extends StatefulWidget {
 }
 
 class _CounterAppState extends State<CounterApp> {
-  int count = 0;
+  int randomNumber = 0;
   bool isLoading = false;
   List<String> myList = ["홍길동", "이순신", "정조", "장영실", "노비", "김삿갓"];
 
@@ -36,7 +38,8 @@ class _CounterAppState extends State<CounterApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('카운터'),
+        leading: const Icon(Icons.key_sharp),
+        title: const Text('당신의 전생을 알려드립니다'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +70,7 @@ class _CounterAppState extends State<CounterApp> {
     }
 
     return Text(
-      myList[count],
+      myList[randomNumber],
       style: const TextStyle(fontSize: 80),
     );
   }
@@ -81,7 +84,7 @@ class _CounterAppState extends State<CounterApp> {
     await Future.delayed(const Duration(seconds: 3));
 
     setState(() {
-      count++;
+      randomNumber = Random().nextInt(6);
       isLoading = false;
     });
   }
