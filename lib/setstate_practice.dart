@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -49,7 +48,7 @@ class _PastLifeState extends State<PastLife> {
           ),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: increase,
+            onPressed: load,
             child: const Text(
               "나와랏!",
               style: TextStyle(fontSize: 20),
@@ -75,7 +74,7 @@ class _PastLifeState extends State<PastLife> {
     );
   }
 
-  Future<void> increase() async {
+  Future<void> load () async {
     setState(() {
       isLoading = true;
     });
