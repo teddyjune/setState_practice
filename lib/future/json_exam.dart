@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 class JsonExam extends StatefulWidget {
-
-
   const JsonExam({Key? key}) : super(key: key);
 
   @override
@@ -12,7 +8,8 @@ class JsonExam extends StatefulWidget {
 }
 
 class _JsonExamState extends State<JsonExam> {
-  Map<String, dynamic> superhero = {};
+  Map<String, dynamic>? powers;
+  List<Map<String, dynamic>> members = [];
 
   @override
   void initState() {
@@ -21,63 +18,71 @@ class _JsonExamState extends State<JsonExam> {
   }
 
   Future initData() async {
-superhero = await getData();
+    powers = (await getMembers()) as Map<String, dynamic>?;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('json을 알아보자'),
+        title: const Text("슈퍼히어로를 알아봅시다"),
       ),
       body: Center(
-        child: ListView.builder(
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(''),
-              );
-            }),
+        child: powers == null
+            ? const CircularProgressIndicator()
+            : Container(
+          child: Text(members['powers']),
+        ),
       ),
     );
   }
 }
 
-class superHero {
-  final String superhero;
-  final String alter_ego;
-  final String characters;
-
-
+Future<List<Map<String, dynamic>>> getMembers() async {
+  await Future.delayed(const Duration(seconds: 2));
+  List<Map<String, dynamic>> members = data['members'];
+  return members;
 }
 
-Future<Map<String, dynamic>> getData() async {
-
-}
-
-
-Map<String, dynamic> json =
-{
-  "superhero": "Batman",
-  "publisher": "DC Comics",
-  "alter_ego": "Bruce Wayne",
-  "first_appearance": "Detective Comics #27",
-  "characters": "Bruce Wayne"
-}
-,
-
-{
-"superhero":"Wonder Woman",
-"publisher":"DC Comics",
-"alter_ego":"Princess Diana",
-"first_appearance":"All Star Comics #8",
-"characters":"Princess Diana"
-},
-
-{
-"superhero":"Flash",
-"publisher":"DC Comics",
-"alter_ego":"Jay Garrick",
-"first_appearance":"Flash Comics #1",
-"characters":"Jay Garrick, Barry Allen, Wally West, Bart Allen"
+Map<String, dynamic> data = {
+  "squadName": "Super Hero Squad",
+  "homeTown": "Metro City",
+  "formed": 2016,
+  "secretBase": "Super tower",
+  "active": true,
+  "members": [
+    {
+      "name": "Molecule Man",
+      "age": 29,
+      "secretIdentity": "Dan Jukes",
+      "powers": [
+        "Radiation resistance",
+        "Turning tiny",
+        "Radiation blast"
+      ]
+    },
+    {
+      "name": "Madame Uppercut",
+      "age": 39,
+      "secretIdentity": "Jane Wilson",
+      "powers": [
+        "Million tonne punch",
+        "Damage resistance",
+        "Superhuman reflexes"
+      ]
+    },
+    {
+      "name": "Eternal Flame",
+      "age": 1000000,
+      "secretIdentity": "Unknown",
+      "powers": [
+        "Immortality",
+        "Heat Immunity",
+        "Inferno",
+        "Teleportation",
+        "Interdimensional travel"
+      ]
+    }
+  ]
 }
